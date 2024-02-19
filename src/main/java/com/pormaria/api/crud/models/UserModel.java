@@ -3,6 +3,7 @@ package com.pormaria.api.crud.models;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -22,7 +23,7 @@ public class UserModel {
     @Column(name = "creation_date")
     private Date creationDate;
 
-    @Column(name = "disabled_date", nullable = true)
+    @Column(name = "disabled_date")
     private Date disabledDate;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -31,6 +32,9 @@ public class UserModel {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MembershipModel> membership;
 
     public int getId() {
         return id;
@@ -94,5 +98,13 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<MembershipModel> getMembership() {
+        return membership;
+    }
+
+    public void setMembership(List<MembershipModel> membership) {
+        this.membership = membership;
     }
 }

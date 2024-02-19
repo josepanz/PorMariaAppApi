@@ -42,10 +42,10 @@ public class UserService {
     public boolean deleteUserById(Long id) {
         try {
             iUserRepository.deleteById(id);
-            System.out.println("User id deleted: "+id);
+            System.out.println("User id deleted: " + id);
             return true;
         } catch (Exception e) {
-            System.out.println("User id cant deleted: "+id);
+            System.out.println("User id cant deleted: " + id);
             return false;
         }
     }

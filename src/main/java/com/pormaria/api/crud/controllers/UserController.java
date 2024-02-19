@@ -15,8 +15,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping (path = "/getAllUsers")
-    public ArrayList<UserModel> getAllUsers(){
+    @GetMapping(path = "/getAllUsers")
+    public ArrayList<UserModel> getAllUsers() {
         return this.userService.getAllUsers();
     }
 
@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/update/{id}")
-    public Optional<UserModel> updateUserById (@RequestBody UserModel request, @PathVariable("id") Long id){
+    public Optional<UserModel> updateUserById(@RequestBody UserModel request, @PathVariable("id") Long id) {
         return this.userService.updateUserById(request, id);
     }
 

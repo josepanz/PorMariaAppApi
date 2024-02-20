@@ -2,6 +2,7 @@ package com.pormaria.api.crud.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 
@@ -76,5 +77,17 @@ public class PersonContactModel {
 
     public void setAdditionalValue(String additionalValue) {
         this.additionalValue = additionalValue;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("value", value)
+                .append("contactType", contactType.toString())
+                .append("person", person)
+                .append("creationDate", creationDate)
+                .append("additionalValue", additionalValue)
+                .toString();
     }
 }

@@ -1,6 +1,7 @@
 package com.pormaria.api.crud.models;
 
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 
@@ -72,5 +73,17 @@ public class PersonTypeModel {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("code", code)
+                .append("value", value)
+                .append("description", description)
+                .append("creationDate", creationDate)
+                .append("enabled", enabled)
+                .toString();
     }
 }

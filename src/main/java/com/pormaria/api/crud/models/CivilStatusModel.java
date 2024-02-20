@@ -1,6 +1,7 @@
 package com.pormaria.api.crud.models;
 
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 
@@ -51,5 +52,15 @@ public class CivilStatusModel {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("description", description)
+                .append("creationDate", creationDate)
+                .append("code", code)
+                .toString();
     }
 }

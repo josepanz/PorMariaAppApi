@@ -1,6 +1,7 @@
 package com.pormaria.api.crud.models;
 
 import jakarta.persistence.*;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 import java.util.List;
@@ -120,5 +121,21 @@ public class PersonModel {
 
     public void setPersonContact(List<PersonContactModel> personContact) {
         this.personContact = personContact;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("names", names)
+                .append("civilStatus", civilStatus)
+                .append("active", active)
+                .append("birthdate", birthdate)
+                .append("creationDate", creationDate)
+                .append("disabledDate", disabledDate)
+                .append("personType", personType)
+                .append("lastNames", lastNames)
+                .append("personContact", personContact.toString())
+                .toString();
     }
 }

@@ -15,12 +15,12 @@ logging:
             springframework: DEBUG
             thymeleaf: TRACE
 spring:
-#    datasource:
-#        jdbc-url: jdbc:postgresql://localhost:5432/
-#        driver-class-name: org.postgresql.Driver
-#        username: postgres
-#        password: postgres
-#        validation-query: SELECT 1
+    datasource:
+        url: jdbc:postgresql://localhost:5432/por_maria_bd
+        driver-class-name: org.postgresql.Driver
+        username: postgres
+        password: admin
+        validation-query: SELECT 1
     hikari:
         min-idle: 1
         max-pool-size: 10
@@ -43,3 +43,6 @@ spring:
         content-type: text/html
         enabled: true
         encoding: UTF-8
+    h2:
+        console:
+            path: /h2-ui

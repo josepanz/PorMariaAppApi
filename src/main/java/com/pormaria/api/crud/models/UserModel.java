@@ -34,7 +34,7 @@ public class UserModel {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.DETACH, orphanRemoval = false)
     private List<MembershipModel> membership;
 
     public int getId() {

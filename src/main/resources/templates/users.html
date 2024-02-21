@@ -35,7 +35,7 @@
           <div class="col-md-6 mt-2">
             <div class="search">
               <i class="fa fa-search"></i>
-              <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control"
+              <input id="keyword" type="search" name="keyword" th:value="${keyword}" class="form-control"
                 placeholder="Ingrese texto">
               <button type="submit" class="btn btn-secondary">Buscar</button>
             </div>
@@ -53,8 +53,8 @@
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Usuario</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
+            <th scope="col">Nombre y Apellido</th>
+            <th scope="col">Fecha Creación</th>
             <th scope="col">Activo</th>
             <th scope="col">Acciones</th>
           </tr>
@@ -63,8 +63,8 @@
           <tr th:each="user : ${users}">
             <th scope="row">[[${user.id}]]</th>
             <td>[[${user.username}]]</td>
-            <td>[[${user.person.names}]]</td>
-            <td>[[${user.person.lastNames}]]</td>
+            <td>[[${user.person.names}]] [[${user.person.lastNames}]]</td>
+            <td>[[${user.person.creationDate}]]</td>
             <td>
               <a th:if="${user.active == true}" class="fa-regular fa-square-check"
                 th:href="@{'/users/' + ${user.id} + '/active/false'}" title="Disable this user"></a>

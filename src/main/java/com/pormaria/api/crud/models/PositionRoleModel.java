@@ -14,8 +14,8 @@ public class PositionRoleModel {
     private Long id;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "position_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "position_id", referencedColumnName = "id")
     private PositionModel position;
 
     @OneToOne(fetch = FetchType.EAGER)

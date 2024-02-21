@@ -17,8 +17,8 @@ public class PersonModel {
     @Column(name = "names")
     private String names;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "civil_status_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "civil_status_id", referencedColumnName = "id")
     private CivilStatusModel civilStatus;
 
     @Column(name = "active")
@@ -33,8 +33,8 @@ public class PersonModel {
     @Column(name = "disabled_date")
     private Date disabledDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "person_type_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "person_type_id", referencedColumnName = "id")
     private PersonTypeModel personType;
 
     @Column(name = "last_names")

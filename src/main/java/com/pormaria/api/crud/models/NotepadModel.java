@@ -13,26 +13,26 @@ public class NotepadModel {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "notes", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "notes", nullable = false, length = 999)
     private String notes;
 
     @Column(name = "creation_date", nullable = false)
     private Date creationDate;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "event_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
     private EventModel event;
 
     @Column(name = "last_modified_date")
     private Date lastModifiedDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "writer_user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "writer_user_id", referencedColumnName = "id", nullable = false)
     private UserModel writeUser;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "last_modifier_user_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "last_modifier_user_id", referencedColumnName = "id")
     private UserModel lastModifierUser;
 
     public Long getId() {

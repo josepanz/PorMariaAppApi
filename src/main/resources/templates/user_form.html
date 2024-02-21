@@ -34,31 +34,39 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="person.names">Nombre</label>
+            <label class="col-sm-3 col-form-label" for="code">code</label>
             <div class="col-sm-9">
-              <input type="text" th:field="*{person.names}" minlength="2" maxlength="256" class="form-control"
-                id="person.names" />
+              <input type="text" th:field="*{code}" minlength="2" maxlength="256" class="form-control"
+                id="code" />
             </div>
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="lastName">Apellido</label>
+            <label class="col-sm-3 col-form-label" for="password">Contraseña</label>
             <div class="col-sm-9">
-              <input type="number" step="1" th:field="*{lastName}" required min="1"
-                class="form-control" id="lastName" />
+              <input type="text" th:field="*{password}" minlength="2" maxlength="256" class="form-control"
+                     id="password" />
             </div>
           </div>
 
           <div class="form-group row">
-            <label class="col-sm-3 form-check-label" for="active">active<</label>
+            <label class="col-sm-3 col-form-label" for="person">Persona</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{person}" minlength="2" maxlength="256" class="form-control"
+                     id="person" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-3 form-check-label" for="active">Activo</label>
             <div class="col-sm-9">
               <input type="checkbox" th:field="*{active}" class="form-control" id="active" />
             </div>
           </div>
 
           <div class="text-center">
-            <input type="submit" value="Save" class="btn btn-primary btn-sm mr-2" />
-            <input type="button" value="Cancel" id="btnCancel" class="btn btn-secondary btn-sm" />
+            <input type="submit" value="Guardar" class="btn btn-primary btn-sm mr-2" />
+            <input type="button" value="Cancelar" id="btnCancel" class="btn btn-secondary btn-sm" />
           </div>
         </div>
       </form>

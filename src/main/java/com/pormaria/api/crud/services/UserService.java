@@ -34,6 +34,17 @@ public class UserService {
             user.setActive(request.isActive());
             user.setPassword(request.getPassword());
             user.setDisabledDate(request.getDisabledDate());
+            iUserRepository.save(user);
+            return Optional.of(user);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<UserModel> updateUserStatusById(Long id, boolean status) {
+        if (iUserRepository.findById(id).isPresent()) {
+            UserModel user = iUserRepository.findById(id).get();
+            user.setActive(status);
+            iUserRepository.save(user);
             return Optional.of(user);
         }
         return Optional.empty();

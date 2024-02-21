@@ -24,6 +24,9 @@ public class EventModel {
     @Column(name = "event_description", nullable = false)
     private String eventDescription;
 
+    @Column(name = "creation_date")
+    private String creationDate;
+
     @Column(name = "event_date")
     private Date eventDate;
 
@@ -36,15 +39,15 @@ public class EventModel {
     @Column(name = "map_location")
     private String mapLocation;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "event_type_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "event_type_id", referencedColumnName = "id")
     private EventTypeModel eventType;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NotepadModel> notes;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserModel creatorUser;
 
     public String getEventTitle() {
@@ -135,6 +138,14 @@ public class EventModel {
         this.creatorUser = creatorUser;
     }
 
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -142,6 +153,7 @@ public class EventModel {
                 .append("eventTitle", eventTitle)
                 .append("eventSubtitle", eventSubtitle)
                 .append("eventDescription", eventDescription)
+                .append("creationDate", creationDate)
                 .append("eventDate", eventDate)
                 .append("eventTimeFrom", eventTimeFrom)
                 .append("eventTimeTo", eventTimeTo)

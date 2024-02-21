@@ -28,7 +28,11 @@ public class EventService {
     public Optional<EventModel> updateEventById(EventModel request, Long id) {
         if (iEventRepository.findById(id).isPresent()) {
             EventModel event = iEventRepository.findById(id).get();
-
+            event.setEventDate(request.getEventDate());
+            event.setEventTimeTo(request.getEventTimeTo());
+            event.setEventTitle(request.getEventTitle());
+            event.setEventSubtitle(request.getEventSubtitle());
+            event.setEventDescription(request.getEventDescription());
             return Optional.of(event);
         }
         return Optional.empty();

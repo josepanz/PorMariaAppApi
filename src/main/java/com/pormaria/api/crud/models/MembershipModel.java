@@ -27,8 +27,8 @@ public class MembershipModel {
     private Date disabledDate;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserModel user;
 
     private boolean principal;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,9 @@ public class UserService {
     }
 
     public UserModel saveUser(UserModel userModel) {
+        if (!iUserRepository.findById(Long.valueOf(userModel.getId())).isPresent()) {
+            userModel.setCreationDate(new Date());
+        }
         return iUserRepository.save(userModel);
     }
 
@@ -34,6 +38,7 @@ public class UserService {
             user.setActive(request.isActive());
             user.setPassword(request.getPassword());
             user.setDisabledDate(request.getDisabledDate());
+            user.setCreationDate(request.getCreationDate());
             iUserRepository.save(user);
             return Optional.of(user);
         }
@@ -44,6 +49,7 @@ public class UserService {
         if (iUserRepository.findById(id).isPresent()) {
             UserModel user = iUserRepository.findById(id).get();
             user.setActive(status);
+            if (!status) user.setDisabledDate(new Date());
             iUserRepository.save(user);
             return Optional.of(user);
         }

@@ -64,7 +64,7 @@
             <th scope="row">[[${user.id}]]</th>
             <td>[[${user.username}]]</td>
             <td>[[${user.person.names}]] [[${user.person.lastNames}]]</td>
-            <td>[[${user.person.creationDate}]]</td>
+            <td>[[${user.creationDate}]]</td>
             <td>
               <a th:if="${user.active == true}" class="fa-regular fa-square-check"
                 th:href="@{'/users/' + ${user.id} + '/active/false'}" title="Disable this user"></a>

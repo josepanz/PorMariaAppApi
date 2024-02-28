@@ -7,7 +7,7 @@
 }
 
 .message {
-  position: absolute;
+  position: absolute!important;
   top: 40px;
   right:5px;
 }

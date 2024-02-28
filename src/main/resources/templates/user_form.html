@@ -23,6 +23,7 @@
         style="max-width: 550px; margin: 0 auto">
 
         <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{creationDate}" />
 
         <div class="p-3">
           <div class="form-group row">
@@ -61,13 +62,6 @@
             <label class="col-sm-3 form-check-label" for="active">Activo</label>
             <div class="col-sm-9">
               <input type="checkbox" th:field="*{active}" class="form-control" id="active" />
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label class="col-sm-3 form-check-label" for="creationDate">Fecha Creación</label>
-            <div class="col-sm-9">
-              <input type="text" th:field="*{creationDate}" class="form-control" id="creationDate" disabled/>
             </div>
           </div>
 

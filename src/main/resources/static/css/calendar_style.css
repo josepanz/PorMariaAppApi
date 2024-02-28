@@ -1,0 +1,44 @@
+
+.calendar-tdstyle {
+	width: 100px;
+	text-align: right;
+}
+
+.calendar-thstyle {
+	width: 100px;
+	text-align: right;
+}
+
+
+.calendar-li {
+	color: red;
+	margin-bottom: 20px;
+}
+
+.calendar-caption {
+	font-weight: bold;
+	color: white;
+	background-color: maroon;
+}
+
+.calendar-holiday {
+	color: #f42300;
+	width: 100px;
+	text-align: right;
+}
+
+
+/* Create three equal columns that floats next to each other */
+.column-calendar {
+    float: left;
+    width: 33.33%;
+    padding-left: 40px;
+    padding-top: 40px;
+}
+
+/* Clear floats after the columns */
+.calendar-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/calendar_style.css}"/>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+		  integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+		  crossorigin="anonymous" referrerpolicy="no-referrer"/>
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+	<style>
+		body {
+            background: lightblue;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        table.center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+	</style>
+	<title>Calendar</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<hr>
+<h1>Calendar Generator</h1>
+<hr>
+<br>
+<form method="post" action="calendarPost">
+	<table class="center">
+		<tr>
+			<td>Enter Year: <input type="text" name="year" id="year"
+								   pattern="^\d{4}$" placeholder="yyyy">
+			</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><input type="submit" name="submit" value="Generate">
+			</td>
+		</tr>
+	</table>
+</form>
+<br>
+<hr>
+<h2>
+	Federal Holidays for <span th:text="${year}"></span>
+</h2>
+<hr>
+<table class="center">
+	<tr>
+		<td>
+			<ul>
+				<li class="calendar-li" th:text="${NewYearsDay}"></li>
+				<li class="calendar-li" th:text="${MLKDay}"></li>
+				<li class="calendar-li" th:text="${PresidentsDay}"></li>
+				<li class="calendar-li" th:if="${GoodFriday} != null" th:text="${GoodFriday}"></li>
+				<li class="calendar-li" th:if="${EasterSunday} != null" th:text="${EasterSunday}"></li>
+				<li class="calendar-li" th:text="${MemorialDay}"></li>
+				<li class="calendar-li" th:text="${IndependenceDay}"></li>
+				<li class="calendar-li" th:text="${LaborDay}"></li>
+				<li class="calendar-li" th:text="${ColumbusDay}"></li>
+				<li class="calendar-li" th:text="${VeteransDay}"></li>
+				<li class="calendar-li" th:text="${Thanksgiving}"></li>
+				<li class="calendar-li" th:text="${Christmas}"></li>
+			</ul>
+		</td>
+	</tr>
+</table>
+<hr>
+<h2>
+	Calendar for <span th:text="${year}"></span>
+</h2>
+<hr>
+<div class="calendar-row">
+	<div class="column-calendar">
+		<table class="center">
+			<caption class="calendar-caption">January</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${JAN}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">February</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${FEB}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="calendar-row">
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">March</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${MAR}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">April</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${APR}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="calendar-row">
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">May</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${MAY}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">June</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${JUN}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="calendar-row">
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">July</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${JUL}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">August</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${AUG}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="calendar-row">
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">September</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${SEP}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">October</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${OCT}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="calendar-row">
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">November</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${NOV}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+	<div class="column-calendar">
+		<table>
+			<caption class="calendar-caption">December</caption>
+			<tr>
+				<th class="calendar-thstyle">Sun</th>
+				<th class="calendar-thstyle">Mon</th>
+				<th class="calendar-thstyle">Tue</th>
+				<th class="calendar-thstyle">Wed</th>
+				<th class="calendar-thstyle">Thu</th>
+				<th class="calendar-thstyle">Fri</th>
+				<th class="calendar-thstyle">Sat</th>
+			</tr>
+			<tr th:each="row: ${DEC}">
+				<th:block th:each="column: ${row}">
+					<th:block th:unless="${column?.isHoliday}">
+						<td class="calendar-tdstyle" th:text="${column?.day}"></td>
+					</th:block>
+					<th:block th:if="${column?.isHoliday}">
+						<td class="calendar-holiday" th:text="${column?.day}"></td>
+					</th:block>
+				</th:block>
+			</tr>
+		</table>
+	</div>
+</div>
+<hr>
+</body>
+</html>

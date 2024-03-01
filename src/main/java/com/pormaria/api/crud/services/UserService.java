@@ -30,6 +30,11 @@ public class UserService {
         return iUserRepository.findById(id);
     }
 
+
+    public Optional<UserModel> getUserByUsername(String username) {
+        return Optional.ofNullable(iUserRepository.findByUsername(username));
+    }
+
     public Optional<UserModel> updateUserById(UserModel request, Long id) {
         if (iUserRepository.findById(id).isPresent()) {
             UserModel user = iUserRepository.findById(id).get();

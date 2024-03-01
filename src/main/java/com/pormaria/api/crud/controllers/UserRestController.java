@@ -25,9 +25,14 @@ public class UserRestController {
         return this.userService.saveUser(user);
     }
 
-    @GetMapping(path = "/getUser/{id}")
+    @GetMapping(path = "/getUser/id/{id}")
     public Optional<UserModel> getUserById(@PathVariable("id") Long id) {
         return this.userService.getUserById(id);
+    }
+
+    @GetMapping(path = "/getUser/username/{username}")
+    public Optional<UserModel> getUserByUsername(@PathVariable("username") String username) {
+        return this.userService.getUserByUsername(username);
     }
 
     @PutMapping(path = "/update/{id}")

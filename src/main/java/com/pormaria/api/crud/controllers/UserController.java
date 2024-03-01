@@ -1,11 +1,16 @@
 package com.pormaria.api.crud.controllers;
 
+import com.pormaria.api.crud.models.CivilStatusModel;
+import com.pormaria.api.crud.models.MembershipModel;
 import com.pormaria.api.crud.models.UserModel;
+import com.pormaria.api.crud.services.CivilStatusService;
+import com.pormaria.api.crud.services.MembershipService;
 import com.pormaria.api.crud.services.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -18,13 +23,27 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class UserController {
 
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserController(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CivilStatusService civilStatusService;
+
+    @Autowired
+    private MembershipService membershipService;
 
     @GetMapping(path = "/users")
     public String getAllUsersPage(Model model, @Param("keyword") String keyword) {
@@ -86,9 +105,16 @@ public class UserController {
     public String editUser(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         try {
             Optional<UserModel> user = this.userService.getUserById(id);
+            if (user.isPresent()) {
+                user.get().setPassword(passwordEncoder.encode(user.get().getPassword()));
+            }
+            List<CivilStatusModel> allCivilStatus = this.civilStatusService.getAllCivilStatus();
+//            List<MembershipModel> allMemberships = this.membershipService.getAllMemberships();
 
             model.addAttribute("user", user);
-            model.addAttribute("pageTitle", "Editar usuario (ID: " + id + ")");
+            model.addAttribute("allCivilStatus", allCivilStatus);
+//            model.addAttribute("allMemberships", allMemberships);
+            model.addAttribute("pageTitle", "Editar usuario");
 
             return "user_form";
         } catch (Exception e) {

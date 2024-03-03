@@ -3,17 +3,26 @@ package com.pormaria.api.crud.controllers;
 import com.pormaria.api.crud.models.UserModel;
 import com.pormaria.api.crud.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
 public class UserRestController {
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    public UserRestController(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @GetMapping(path = "/getAllUsers")
     public ArrayList<UserModel> getAllUsers() {
@@ -33,6 +42,14 @@ public class UserRestController {
     @GetMapping(path = "/getUser/username/{username}")
     public Optional<UserModel> getUserByUsername(@PathVariable("username") String username) {
         return this.userService.getUserByUsername(username);
+    }
+
+    @PostMapping(path = "/login")
+    public Optional<UserModel> loginUser(@RequestBody Map<String, Object> request) {
+        String username = (String) request.get("username");
+        String password = (String) request.get("password");
+        Optional<UserModel> user = this.userService.getUserByUsername(username);
+        return user.map(userModel -> passwordEncoder.matches(password, userModel.getPassword()) ? userModel : null);
     }
 
     @PutMapping(path = "/update/{id}")

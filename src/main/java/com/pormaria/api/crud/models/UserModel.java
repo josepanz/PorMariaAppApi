@@ -1,17 +1,21 @@
 package com.pormaria.api.crud.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "code")
     private String code;
@@ -37,78 +41,6 @@ public class UserModel {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.DETACH, orphanRemoval = false)
     private List<MembershipModel> membership;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Date getDisabledDate() {
-        return disabledDate;
-    }
-
-    public void setDisabledDate(Date disabledDate) {
-        this.disabledDate = disabledDate;
-    }
-
-    public PersonModel getPerson() {
-        return person;
-    }
-
-    public void setPerson(PersonModel person) {
-        this.person = person;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<MembershipModel> getMembership() {
-        return membership;
-    }
-
-    public void setMembership(List<MembershipModel> membership) {
-        this.membership = membership;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -123,4 +55,5 @@ public class UserModel {
                 .append("membership", membership)
                 .toString();
     }
+
 }

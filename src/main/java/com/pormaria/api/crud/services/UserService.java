@@ -20,7 +20,7 @@ public class UserService {
     }
 
     public UserModel saveUser(UserModel userModel) {
-        if (!iUserRepository.findById(Long.valueOf(userModel.getId())).isPresent()) {
+        if (!iUserRepository.findById(userModel.getId()).isPresent()) {
             userModel.setCreationDate(new Date());
         }
         return iUserRepository.save(userModel);
@@ -28,6 +28,11 @@ public class UserService {
 
     public Optional<UserModel> getUserById(Long id) {
         return iUserRepository.findById(id);
+    }
+
+
+    public Optional<UserModel> getUserByUsername(String username) {
+        return Optional.ofNullable(iUserRepository.findByUsername(username));
     }
 
     public Optional<UserModel> updateUserById(UserModel request, Long id) {

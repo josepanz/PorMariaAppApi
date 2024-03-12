@@ -92,6 +92,7 @@ public class UserController {
             } else {
                 user.setDisabledDate(null);
             }
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             this.userService.saveUser(user);
             redirectAttributes.addFlashAttribute("message", "El usuario fue creado satisfactoriamente!");
         } catch (Exception e) {

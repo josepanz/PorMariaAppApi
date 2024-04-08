@@ -35,6 +35,7 @@ public class PersonService {
             person.setPersonType(request.getPersonType());
             person.setActive(request.isActive());
             person.setDisabledDate(request.getDisabledDate());
+            iPersonRepository.save(person);
             return Optional.of(person);
         }
         return Optional.empty();

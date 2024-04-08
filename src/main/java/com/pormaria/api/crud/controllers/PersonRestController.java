@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/person")
-public class PersonController {
+public class PersonRestController {
 
 
     @Autowired

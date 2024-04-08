@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "events")
@@ -43,7 +44,8 @@ public class EventModel {
     @JoinColumn(name = "event_type_id", referencedColumnName = "id")
     private EventTypeModel eventType;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "event", cascade = CascadeType.ALL)
+    @Nullable
     private List<NotepadModel> notes;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

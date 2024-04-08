@@ -20,8 +20,8 @@ public class NotepadModel {
     private Date creationDate;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "event_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "event_id", referencedColumnName = "id", nullable = true)
     private EventModel event;
 
     @Column(name = "last_modified_date")

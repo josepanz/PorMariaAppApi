@@ -1,7 +1,9 @@
 package com.pormaria.api.crud.services;
 
 import com.pormaria.api.crud.models.EventModel;
+import com.pormaria.api.crud.models.EventTypeModel;
 import com.pormaria.api.crud.repositories.IEventRepository;
+import com.pormaria.api.crud.repositories.IEventTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,15 @@ public class EventService {
     @Autowired
     IEventRepository iEventRepository;
 
+    @Autowired
+    IEventTypeRepository iEventTypeRepository;
+
     public ArrayList<EventModel> getAllEvents() {
         return (ArrayList<EventModel>) iEventRepository.findAll();
+    }
+
+    public ArrayList<EventTypeModel> getAllEventsType() {
+        return (ArrayList<EventTypeModel>) iEventTypeRepository.findAll();
     }
 
     public EventModel saveEvent(EventModel eventModel) {
@@ -26,13 +35,16 @@ public class EventService {
     }
 
     public Optional<EventModel> updateEventById(EventModel request, Long id) {
-        if (iEventRepository.findById(id).isPresent()) {
-            EventModel event = iEventRepository.findById(id).get();
+        Optional <EventModel> e = iEventRepository.findById(id);
+        if (e.isPresent()) {
+            EventModel event = e.get();
             event.setEventDate(request.getEventDate());
             event.setEventTimeTo(request.getEventTimeTo());
             event.setEventTitle(request.getEventTitle());
             event.setEventSubtitle(request.getEventSubtitle());
             event.setEventDescription(request.getEventDescription());
+            event.setNotes(request.getNotes());
+            iEventRepository.save(event);
             return Optional.of(event);
         }
         return Optional.empty();
